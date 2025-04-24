@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speed-Up Calculator</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #121212;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      padding: 20px;
+      background: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #ffb400;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      margin: 0 10px;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 8px;
+      background-color: #333;
+      color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    .tab:hover, .tab.active {
+      background-color: #ffb400;
+    }
+
+    .section {
+      display: none;
+      padding: 20px;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .grid input {
+      background-color: #333;
+      border: 2px solid #444;
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .grid input:focus {
+      outline: none;
+      border-color: #ffb400;
+    }
+
+    .grid label {
+      display: block;
+      text-align: center;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .section h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #ffb400;
+    }
+
+    .result {
+      margin-top: 20px;
+      text-align: center;
+      background-color: #2a2a2a;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .result h3 {
+      font-size: 20px;
+      color: #ffb400;
+    }
+
+    .result p {
+      font-size: 18px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Speed-Up Calculator</h1>
+
+    <div class="tabs">
+      <div class="tab active" onclick="showSection('building')">Building Speed-Ups</div>
+      <div class="tab" onclick="showSection('universal')">Universal Speed-Ups</div>
+      <div class="tab" onclick="showSection('unit')">Unit Production</div>
+      <div class="tab" onclick="showSection('research')">Research Speed-Ups</div>
+      <div class="tab" onclick="showSection('repairing')">Repairing Speed-Ups</div>
+    </div>
+
+    <div id="building" class="section active">
+      <h2>Building Speed-Ups</h2>
+      <div class="grid">
+        <div>
+          <label>5m</label>
+          <input type="number" placeholder="Enter amount" min="0" id="building-5m" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>15m</label>
+          <input type="number" placeholder="Enter amount" min="0" id="building-15m" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>30m</label>
+          <input type="number" placeholder="Enter amount" min="0" id="building-30m" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>1h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="building-1h" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>2h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="building-2h" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>3h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="building-3h" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>8h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="building-8h" oninput="recalculateAll()">
+        </div>
+      </div>
+      <div id="building-result" class="result"></div>
+    </div>
+
+    <div id="universal" class="section">
+      <h2>Universal Speed-Ups</h2>
+      <div class="grid">
+        <div>
+          <label>5m</label>
+          <input type="number" placeholder="Enter amount" min="0" id="universal-5m" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>15m</label>
+          <input type="number" placeholder="Enter amount" min="0" id="universal-15m" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>30m</label>
+          <input type="number" placeholder="Enter amount" min="0" id="universal-30m" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>1h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="universal-1h" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>2h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="universal-2h" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>3h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="universal-3h" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>8h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="universal-8h" oninput="recalculateAll()">
+        </div>
+      </div>
+      <div id="universal-result" class="result"></div>
+    </div>
+
+    <div id="unit" class="section">
+      <h2>Unit Production Speed-Ups</h2>
+      <div class="grid">
+        <div>
+          <label>Units Produced</label>
+          <input type="number" placeholder="Enter units" min="0" id="unit-produced" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>Time to Produce</label>
+          <input type="number" placeholder="Enter time (hours)" min="0" id="unit-time-hours" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>5m Speed-Ups</label>
+          <input type="number" placeholder="Enter amount" min="0" id="unit-5m" oninput="recalculateUnitProduction()">
+        </div>
+        <div>
+          <label>15m Speed-Ups</label>
+          <input type="number" placeholder="Enter amount" min="0" id="unit-15m" oninput="recalculateUnitProduction()">
+        </div>
+        <div>
+          <label>30m Speed-Ups</label>
+          <input type="number" placeholder="Enter amount" min="0" id="unit-30m" oninput="recalculateUnitProduction()">
+        </div>
+        <div>
+          <label>1h Speed-Ups</label>
+          <input type="number" placeholder="Enter amount" min="0" id="unit-1h" oninput="recalculateUnitProduction()">
+        </div>
+        <div>
+          <label>2h Speed-Ups</label>
+          <input type="number" placeholder="Enter amount" min="0" id="unit-2h" oninput="recalculateUnitProduction()">
+        </div>
+        <div>
+          <label>3h Speed-Ups</label>
+          <input type="number" placeholder="Enter amount" min="0" id="unit-3h" oninput="recalculateUnitProduction()">
+        </div>
+        <div>
+          <label>8h Speed-Ups</label>
+          <input type="number" placeholder="Enter amount" min="0" id="unit-8h" oninput="recalculateUnitProduction()">
+        </div>
+      </div>
+      <div id="unit-result" class="result"></div>
+    </div>
+
+    <div id="research" class="section">
+      <h2>Research Speed-Ups</h2>
+      <div class="grid">
+        <div>
+          <label>5m</label>
+          <input type="number" placeholder="Enter amount" min="0" id="research-5m" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>15m</label>
+          <input type="number" placeholder="Enter amount" min="0" id="research-15m" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>30m</label>
+          <input type="number" placeholder="Enter amount" min="0" id="research-30m" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>1h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="research-1h" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>2h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="research-2h" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>3h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="research-3h" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>8h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="research-8h" oninput="recalculateAll()">
+        </div>
+      </div>
+      <div id="research-result" class="result"></div>
+    </div>
+
+    <div id="repairing" class="section">
+      <h2>Repairing Speed-Ups</h2>
+      <div class="grid">
+        <div>
+          <label>5m</label>
+          <input type="number" placeholder="Enter amount" min="0" id="repairing-5m" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>15m</label>
+          <input type="number" placeholder="Enter amount" min="0" id="repairing-15m" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>30m</label>
+          <input type="number" placeholder="Enter amount" min="0" id="repairing-30m" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>1h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="repairing-1h" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>2h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="repairing-2h" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>3h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="repairing-3h" oninput="recalculateAll()">
+        </div>
+        <div>
+          <label>8h</label>
+          <input type="number" placeholder="Enter amount" min="0" id="repairing-8h" oninput="recalculateAll()">
+        </div>
+      </div>
+      <div id="repairing-result" class="result"></div>
+    </div>
+  </div>
+
+  <script>
+    // Show active section
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => section.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
+    }
+
+    // Recalculate everything when input is updated
+    function recalculateAll() {
+      recalculateBuilding();
+      recalculateUniversal();
+      recalculateUnitProduction();
+      recalculateResearch();
+      recalculateRepairing();
+    }
+
+    // Function to calculate speed-ups in days
+    function convertToDays(totalMinutes) {
+      return totalMinutes / 1440;  // 1 day = 1440 minutes
+    }
+
+    // Building Speed-Ups Calculation
+    function recalculateBuilding() {
+      const building5m = parseInt(document.getElementById('building-5m').value) || 0;
+      const building15m = parseInt(document.getElementById('building-15m').value) || 0;
+      const building30m = parseInt(document.getElementById('building-30m').value) || 0;
+      const building1h = parseInt(document.getElementById('building-1h').value) || 0;
+      const building2h = parseInt(document.getElementById('building-2h').value) || 0;
+      const building3h = parseInt(document.getElementById('building-3h').value) || 0;
+      const building8h = parseInt(document.getElementById('building-8h').value) || 0;
+
+      const totalBuildingSpeedUps = building5m * 5 + building15m * 15 + building30m * 30 + building1h * 60 + building2h * 120 + building3h * 180 + building8h * 480;
+      const totalBuildingDays = convertToDays(totalBuildingSpeedUps);
+
+      document.getElementById('building-result').innerHTML = `
+        <h3>Total Building Speed-Up Time (in days):</h3>
+        <p>${totalBuildingDays.toFixed(2)} days</p>
+      `;
+    }
+
+    // Universal Speed-Ups Calculation
+    function recalculateUniversal() {
+      const universal5m = parseInt(document.getElementById('universal-5m').value) || 0;
+      const universal15m = parseInt(document.getElementById('universal-15m').value) || 0;
+      const universal30m = parseInt(document.getElementById('universal-30m').value) || 0;
+      const universal1h = parseInt(document.getElementById('universal-1h').value) || 0;
+      const universal2h = parseInt(document.getElementById('universal-2h').value) || 0;
+      const universal3h = parseInt(document.getElementById('universal-3h').value) || 0;
+      const universal8h = parseInt(document.getElementById('universal-8h').value) || 0;
+
+      const totalUniversalSpeedUps = universal5m * 5 + universal15m * 15 + universal30m * 30 + universal1h * 60 + universal2h * 120 + universal3h * 180 + universal8h * 480;
+      const totalUniversalDays = convertToDays(totalUniversalSpeedUps);
+
+      document.getElementById('universal-result').innerHTML = `
+        <h3>Total Universal Speed-Up Time (in days):</h3>
+        <p>${totalUniversalDays.toFixed(2)} days</p>
+      `;
+    }
+
+    // Unit Production Speed-Ups Calculation
+    function recalculateUnitProduction() {
+      const unitProduced = parseInt(document.getElementById('unit-produced').value) || 0;
+      const unitTime = parseInt(document.getElementById('unit-time-hours').value) || 0;
+
+      const unit5m = parseInt(document.getElementById('unit-5m').value) || 0;
+      const unit15m = parseInt(document.getElementById('unit-15m').value) || 0;
+      const unit30m = parseInt(document.getElementById('unit-30m').value) || 0;
+      const unit1h = parseInt(document.getElementById('unit-1h').value) || 0;
+      const unit2h = parseInt(document.getElementById('unit-2h').value) || 0;
+      const unit3h = parseInt(document.getElementById('unit-3h').value) || 0;
+      const unit8h = parseInt(document.getElementById('unit-8h').value) || 0;
+
+      const totalSpeedUps = unit5m * 5 + unit15m * 15 + unit30m * 30 + unit1h * 60 + unit2h * 120 + unit3h * 180 + unit8h * 480;
+
+      // Calculate units per hour
+      const unitsPerHour = unitProduced / unitTime;
+      const totalMinutesAvailable = totalSpeedUps;
+
+      // Calculate total units with speed-ups
+      const additionalHours = totalMinutesAvailable / 60;
+      const unitsWithSpeedUp = unitsPerHour * additionalHours;
+
+      document.getElementById('unit-result').innerHTML = `
+        <h3>Total Units With Speed-Ups:</h3>
+        <p>${Math.round(unitsWithSpeedUp)} units</p>
+      `;
+    }
+
+    // Research Speed-Ups Calculation
+    function recalculateResearch() {
+      const research5m = parseInt(document.getElementById('research-5m').value) || 0;
+      const research15m = parseInt(document.getElementById('research-15m').value) || 0;
+      const research30m = parseInt(document.getElementById('research-30m').value) || 0;
+      const research1h = parseInt(document.getElementById('research-1h').value) || 0;
+      const research2h = parseInt(document.getElementById('research-2h').value) || 0;
+      const research3h = parseInt(document.getElementById('research-3h').value) || 0;
+      const research8h = parseInt(document.getElementById('research-8h').value) || 0;
+
+      const totalResearchSpeedUps = research5m * 5 + research15m * 15 + research30m * 30 + research1h * 60 + research2h * 120 + research3h * 180 + research8h * 480;
+      const totalResearchDays = convertToDays(totalResearchSpeedUps);
+
+      document.getElementById('research-result').innerHTML = `
+        <h3>Total Research Speed-Up Time (in days):</h3>
+        <p>${totalResearchDays.toFixed(2)} days</p>
+      `;
+    }
+
+    // Repairing Speed-Ups Calculation
+    function recalculateRepairing() {
+      const repairing5m = parseInt(document.getElementById('repairing-5m').value) || 0;
+      const repairing15m = parseInt(document.getElementById('repairing-15m').value) || 0;
+      const repairing30m = parseInt(document.getElementById('repairing-30m').value) || 0;
+      const repairing1h = parseInt(document.getElementById('repairing-1h').value) || 0;
+      const repairing2h = parseInt(document.getElementById('repairing-2h').value) || 0;
+      const repairing3h = parseInt(document.getElementById('repairing-3h').value) || 0;
+      const repairing8h = parseInt(document.getElementById('repairing-8h').value) || 0;
+
+      const totalRepairingSpeedUps = repairing5m * 5 + repairing15m * 15 + repairing30m * 30 + repairing1h * 60 + repairing2h * 120 + repairing3h * 180 + repairing8h * 480;
+      const totalRepairingDays = convertToDays(totalRepairingSpeedUps);
+
+      document.getElementById('repairing-result').innerHTML = `
+        <h3>Total Repairing Speed-Up Time (in days):</h3>
+        <p>${totalRepairingDays.toFixed(2)} days</p>
+      `;
+    }
+
+    // Initialize the first section
+    showSection('building');
+  </script>
+</body>
+</html>
